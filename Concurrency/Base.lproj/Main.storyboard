@@ -13,7 +13,6 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Concurrency" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -110,9 +109,11 @@
                     <navigationItem key="navigationItem" id="EEf-Bg-Azj"/>
                     <connections>
                         <outlet property="mainTableView" destination="MPP-0y-LBr" id="DKo-0L-iNP"/>
+                        <outlet property="searchBarOutlet" destination="jy8-SG-DCj" id="2bY-MI-G8o"/>
                         <segue destination="eS8-PY-ZPD" kind="show" id="KE0-gu-1Xs"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="418.84057971014494" y="111.83035714285714"/>
         </scene>
@@ -161,14 +162,38 @@
                                     <constraint firstAttribute="width" constant="240" id="5ku-FW-skH"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5gU-jj-pR6">
+                                <rect key="frame" x="117" y="406" width="180" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Wkp-Mx-Kuc"/>
+                                    <constraint firstAttribute="width" constant="180" id="caO-gZ-R7o"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pCU-kE-ilN">
+                                <rect key="frame" x="332.5" y="406.5" width="80" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="OHz-H8-wUe"/>
+                                    <constraint firstAttribute="width" constant="80" id="vPv-tU-AWx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="XrY-5Q-mQz" firstAttribute="top" secondItem="tMq-OW-IC2" secondAttribute="top" id="0t6-fB-oyw"/>
+                            <constraint firstItem="pCU-kE-ilN" firstAttribute="top" secondItem="Mir-lq-J8B" secondAttribute="bottom" multiplier="1.5" id="7o9-fd-An6"/>
                             <constraint firstItem="Mir-lq-J8B" firstAttribute="top" secondItem="XrY-5Q-mQz" secondAttribute="bottom" constant="25" id="AT6-tm-rYI"/>
                             <constraint firstItem="I2G-Gv-cq5" firstAttribute="top" secondItem="flp-SW-ITu" secondAttribute="bottom" constant="25" id="Bnz-yC-Ulc"/>
+                            <constraint firstItem="5gU-jj-pR6" firstAttribute="top" secondItem="I2G-Gv-cq5" secondAttribute="bottom" constant="25" id="Et1-jZ-qgV"/>
                             <constraint firstItem="XrY-5Q-mQz" firstAttribute="centerX" secondItem="tMq-OW-IC2" secondAttribute="centerX" id="OpX-oB-3yg"/>
                             <constraint firstItem="Mir-lq-J8B" firstAttribute="centerX" secondItem="tMq-OW-IC2" secondAttribute="centerX" id="VhC-D5-V5Y"/>
+                            <constraint firstItem="5gU-jj-pR6" firstAttribute="centerX" secondItem="tMq-OW-IC2" secondAttribute="centerX" id="WWL-Pb-RgV"/>
+                            <constraint firstItem="pCU-kE-ilN" firstAttribute="centerX" secondItem="tMq-OW-IC2" secondAttribute="centerX" multiplier="1.8" id="WXR-4E-swU"/>
                             <constraint firstItem="flp-SW-ITu" firstAttribute="top" secondItem="Mir-lq-J8B" secondAttribute="bottom" constant="25" id="XBf-Ly-PCI"/>
                             <constraint firstItem="I2G-Gv-cq5" firstAttribute="centerX" secondItem="tMq-OW-IC2" secondAttribute="centerX" id="eac-mJ-zFR"/>
                             <constraint firstItem="flp-SW-ITu" firstAttribute="centerX" secondItem="tMq-OW-IC2" secondAttribute="centerX" id="wpz-XG-nhh"/>
@@ -177,6 +202,8 @@
                     </view>
                     <connections>
                         <outlet property="capitalID" destination="flp-SW-ITu" id="nPb-Fp-1TN"/>
+                        <outlet property="currencyLabel" destination="5gU-jj-pR6" id="M2y-rl-Tqx"/>
+                        <outlet property="exchangeRateLabel" destination="pCU-kE-ilN" id="ynF-V2-tQc"/>
                         <outlet property="nameID" destination="Mir-lq-J8B" id="66u-NG-PVQ"/>
                         <outlet property="populationID" destination="I2G-Gv-cq5" id="rZz-PH-C1s"/>
                     </connections>

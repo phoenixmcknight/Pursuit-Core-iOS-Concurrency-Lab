@@ -10,15 +10,36 @@ import UIKit
 
 class ViewController: UIViewController {
 
- 
+    @IBOutlet weak var searchBarOutlet: UISearchBar!
+    
     @IBOutlet weak var mainTableView: UITableView!
     var countryList = [CountryList]() {
         didSet {
             DispatchQueue.main.async {
-
+                
                 self.mainTableView.reloadData()
+            }
         }
     }
+    var searchBarText: String? = nil {
+        didSet {
+            DispatchQueue.main.async {
+                self.mainTableView.reloadData()
+            }
+        }
+    }
+    var searchResults: [CountryList] {
+        get {
+            guard let searchString = searchBarText else {
+                return countryList
+            }
+            guard searchString != "" else {
+                return countryList
+            }
+            return countryList.filter({$0.name.lowercased().replacingOccurrences(of: " ", with: "").contains(searchString.replacingOccurrences(of: " ", with: "").lowercased())})
+
+        }
+        
     }
     var exchangeRates = [Rates]() {
         didSet {
@@ -30,7 +51,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
-        getCurrencyData()
         getCountryListData()
         // Do any additional setup after loading the view.
     }
@@ -45,28 +65,19 @@ class ViewController: UIViewController {
         }
     }
     
-    private func getCurrencyData() {
-        CurrencyAPIClient.shared.fetchCurrencyData { (results) in
-            switch results {
-            case .success(let user):
-                self.exchangeRates = user.rates
-            case .failure(let failure):
-                print("could not retrieve Data \(failure)")
-            }
         }
-    }
-}
+
 extension ViewController: UITableViewDelegate{}
 extension ViewController:UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return countryList.count
+       return searchResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = mainTableView.dequeueReusableCell(withIdentifier: "ID") as! TableViewCell
-        cell.nameID.text = countryList[indexPath.row].name
-        cell.populationID.text = countryList[indexPath.row].population.description
-       cell.capitalCityID.text = countryList[indexPath.row].capital
+        cell.nameID.text = searchResults[indexPath.row].name
+        cell.populationID.text = searchResults[indexPath.row].population.description
+       cell.capitalCityID.text = searchResults[indexPath.row].capital
 //        if let imageURL = URL(string: countryList[indexPath.row].flag.description){
 //            DispatchQueue.global().async {
 //                let data = try? Data(contentsOf: imageURL)
@@ -85,7 +96,7 @@ extension ViewController:UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyBoard = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
         
-        storyBoard.passingInfo1 = countryList[indexPath.row]
+        storyBoard.passingInfo1 = searchResults[indexPath.row]
        
        
         navigationController?.pushViewController(storyBoard, animated: true)
@@ -94,7 +105,14 @@ extension ViewController:UITableViewDataSource{
     func setUp() {
         mainTableView.dataSource = self
         mainTableView.delegate = self
+        searchBarOutlet.delegate = self
     }
 }
-extension ViewController:UISearchBarDelegate{}
+extension ViewController:UISearchBarDelegate{
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchBarText = searchBar.text
+    }
+}
+
+
 
